@@ -26,19 +26,19 @@ class NewsListItem extends StatelessWidget {
             ),
           ),
           Text(
-            news.author,
+            news.author ?? "",
             style: TextStyle(fontWeight: FontWeight.w300),
             textAlign: TextAlign.start,
           ),
           Text(
-            news.title,
+            news.title ?? "",
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.start,
           ),
           Text(
-            news.publishedAt,
+            news.publishedAt ?? "",
             textAlign: TextAlign.end,
             style: TextStyle(fontWeight: FontWeight.w300),
           ),

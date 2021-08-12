@@ -11,9 +11,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      themeMode: ThemeMode.light,
       theme: ThemeData(
-        primaryColor: MyThemeData.primaryColor,
-      ),
+          primaryColor: MyThemeData.primaryColor,
+          scaffoldBackgroundColor: Colors.transparent),
       routes: {
         HomeScreen.ROUTE_NAME: (context) => HomeScreen(),
       },

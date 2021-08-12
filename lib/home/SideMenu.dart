@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 
 class SideMenu extends StatelessWidget {
   List<SideMenuItem> sideMenuList = [
-    SideMenuItem('Categories', Icons.list),
-    SideMenuItem('Settings', Icons.settings),
+    SideMenuItem(SideMenuItem.CATEGORIES, 'Categories', Icons.list),
+    SideMenuItem(SideMenuItem.SETTINGS, 'Settings', Icons.settings),
   ];
+  Function onSideMenuItemClick;
+
+  SideMenu(this.onSideMenuItemClick);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,9 @@ class SideMenu extends StatelessWidget {
         Expanded(
           child: ListView.builder(
             itemBuilder: (buildContex, index) {
-              return SideMenuWidget(sideMenuList[index]);
+              return SideMenuWidget(sideMenuList[index], (SideMenuItem item) {
+                onSideMenuItemClick(item);
+              });
             },
             itemCount: sideMenuList.length,
           ),
@@ -37,26 +42,35 @@ class SideMenu extends StatelessWidget {
 }
 
 class SideMenuItem {
+  static const CATEGORIES = 'Cats';
+  static const SETTINGS = 'settings';
+  String id;
   String title;
   IconData iconData;
 
-  SideMenuItem(this.title, this.iconData);
+  SideMenuItem(this.id, this.title, this.iconData);
 }
 
 class SideMenuWidget extends StatelessWidget {
   SideMenuItem sideMenuItem;
+  Function onSideMenuItemclick;
 
-  SideMenuWidget(this.sideMenuItem);
+  SideMenuWidget(this.sideMenuItem, this.onSideMenuItemclick);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Padding(
-            padding: EdgeInsets.all(12), child: Icon(sideMenuItem.iconData)),
-        Text(sideMenuItem.title)
-      ],
+    return InkWell(
+      onTap: () {
+        onSideMenuItemclick(sideMenuItem);
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+              padding: EdgeInsets.all(12), child: Icon(sideMenuItem.iconData)),
+          Text(sideMenuItem.title)
+        ],
+      ),
     );
   }
 }

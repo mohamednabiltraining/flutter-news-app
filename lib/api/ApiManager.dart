@@ -4,10 +4,11 @@ import 'package:news_app_sat/model/NewsResponse.dart';
 import 'package:news_app_sat/model/SouresResponse.dart';
 import 'package:http/http.dart' as http;
 
-Future<SourcesResponse> getNewsSources() async {
+Future<SourcesResponse> getNewsSources(String categoryId) async {
   final uri = Uri.https('newsapi.org', '/v2/top-headlines/sources',
-      {'apiKey': '5909ae28122a471d8b0c237d5989cb73'});
-  final response = await http.get(uri);
+      {'apiKey': '5909ae28122a471d8b0c237d5989cb73', 'category': categoryId});
+  final response = await http.get(uri,
+      headers: {'Authorization': 'Bearer 5909ae28122a471d8b0c237d5989cb73'});
   print(response.body);
   if (response.statusCode == 200) {
     return SourcesResponse.fromJson(jsonDecode(response.body));
